@@ -2,22 +2,22 @@ Treinamento Web Services RESTful e Spring
 
 Cada aula é representada por um commit que está identificado com o nome/número da aula.
 
-Aula 2.1 - Criando o projeto
+<b>Aula 2.1</b> - Criando o projeto
 - Criação do projeto: https://start.spring.io/
 
-Aula 2.2 - Modelando nosso primeiro recurso
+<b>Aula 2.2</b> - Modelando nosso primeiro recurso
 - Criamos uma classe LivrosResources e anotamos com @RestController 
 - Criamos um método chamado listar que retorna uma String (“Livro 1, Livro 2”)
 - Mapeamos esse método com @RequestMapping(value=”/livros”, method=RequestMethod.GET).
 
-Aula 2.3 - Criando uma representação para o recurso Livro
+<b>Aula 2.3</b> - Criando uma representação para o recurso Livro
 - Criamos uma classe chamada Livro e uma classe chamada Comentario que é um dos atributos de Livro.
 - Alteramos o método listar da classe LivrosResources fazendo com que o seu retorno agora seja "List<Livro>" e alteramos a implementação para retornar uma lista com dois livros com o nome preenchido.
 
-Aula 2.4 - Utilizando a anotação @JsonInclude
+<b>Aula 2.4</b> - Utilizando a anotação @JsonInclude
 - Alteramos a classe Livro inserido acima de cada atributo a anotação @JsonInclude(Include.NON_NULL) para suprimir o campo do JSON retornado caso o valor seja nulo
 
-Aula 2.5 - Interagindo com banco de dados
+<b>Aula 2.5</b> - Interagindo com banco de dados
 - Altermos o pom.xml adicionando as seguintes dependências:
 
 		<dependency>
@@ -47,11 +47,15 @@ Aula 2.5 - Interagindo com banco de dados
 
 - Criamos uma interface "LivrosRepository" que extende JpaRepository e injetamos essa interface na classe "LivrosResources" alterando a implementação do método listar para utilizar esse repository.
 
-Aula 2.6 - Salvando o recurso Livro a partir de um POST
+<b>Aula 2.6</b> - Salvando o recurso Livro a partir de um POST
 
-- Criamo o método salvar na classe "LivrosRepository" que será executado pela URI "/livros" com método POST.
+- Criamo o método salvar na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros" com Http Method POST.
 - Mudamos a anotação @RequestMapping para a classe retirando dos médotos o mapeamento "/livros"
 
-2.7 - Buscando um livro com o uso da anotação @PathVariable
+<b>Aula 2.7</b> - Buscando um livro com o uso da anotação @PathVariable
 
-- Criamos o método busca na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros/{id}"
+- Criamos o método buscar na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros/{id}" com o Http Method GET
+
+<b>Aula 2.8</b> - Deletando o recurso Livro com o DELETE
+
+- Criamos o método remover na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros/{id}" om o Http Method DELETE
