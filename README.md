@@ -6,13 +6,13 @@ Cada aula é representada por um commit que está identificado com o nome/númer
 - Criação do projeto: https://start.spring.io/
 
 <b>Aula 2.2</b> - Modelando nosso primeiro recurso
-- Criamos uma classe LivrosResources e anotamos com @RestController 
-- Criamos um método chamado listar que retorna uma String (“Livro 1, Livro 2”)
+- Criamos uma classe "LivrosResources" e anotamos com @RestController 
+- Criamos um método chamado "listar" que retorna uma String (“Livro 1, Livro 2”)
 - Mapeamos esse método com @RequestMapping(value=”/livros”, method=RequestMethod.GET).
 
 <b>Aula 2.3</b> - Criando uma representação para o recurso Livro
-- Criamos uma classe chamada Livro e uma classe chamada Comentario que é um dos atributos de Livro.
-- Alteramos o método listar da classe LivrosResources fazendo com que o seu retorno agora seja "List<Livro>" e alteramos a implementação para retornar uma lista com dois livros com o nome preenchido.
+- Criamos uma classe chamada "Livro" e uma classe chamada "Comentario" que é um dos atributos de Livro.
+- Alteramos o método "listar" da classe LivrosResources fazendo com que o seu retorno agora seja "List<Livro>" e alteramos a implementação para retornar uma lista com dois livros com o nome preenchido.
 
 <b>Aula 2.4</b> - Utilizando a anotação @JsonInclude
 - Alteramos a classe Livro inserido acima de cada atributo a anotação @JsonInclude(Include.NON_NULL) para suprimir o campo do JSON retornado caso o valor seja nulo
@@ -45,21 +45,27 @@ Cada aula é representada por um commit que está identificado com o nome/númer
 
 - Na classe Livro anotamos com @Entity, o atributo id com @Id e @GeneratedValue(strategy = GenerationType.IDENTITY) e o atributo comentarios com @Transient (por enquanto ficará assim).
 
-- Criamos uma interface "LivrosRepository" que extende JpaRepository e injetamos essa interface na classe "LivrosResources" alterando a implementação do método listar para utilizar esse repository.
+- Criamos uma interface "LivrosRepository" que extende JpaRepository e injetamos essa interface na classe "LivrosResources" alterando a implementação do método "listar" para utilizar esse repository.
 
 <b>Aula 2.6</b> - Salvando o recurso Livro a partir de um POST
 
-- Criamo o método salvar na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros" com Http Method POST.
+- Criamos o método "salvar" na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros" com Http Method POST.
 - Mudamos a anotação @RequestMapping para a classe retirando dos médotos o mapeamento "/livros"
 
 <b>Aula 2.7</b> - Buscando um livro com o uso da anotação @PathVariable
 
-- Criamos o método buscar na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros/{id}" com o Http Method GET
+- Criamos o método "buscar" na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros/{id}" com o Http Method GET
 
 <b>Aula 2.8</b> - Deletando o recurso Livro com o DELETE
 
-- Criamos o método remover na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros/{id}" om o Http Method DELETE
+- Criamos o método "remover" na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros/{id}" om o Http Method DELETE
 
 <b>Aula 2.9</b> - PUT para atualizar o recurso Livro
 
-- Criamos o método atualizar na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros/{id}" om o Http Method PUT
+- Criamos o método "atualizar" na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros/{id}" om o Http Method PUT
+
+<b>Aula 2.10</b> - Tratamento correto das respostas HTTP 404 e 201
+
+- Alteramos o método "buscar" na classe "LivrosRepository" trocando o retorno para "ResponseEntity<?>" o que nos permite fazer os tratamentos corretos dos Http Status de retorno do serviço. Caso o recurso não seja encontrado a resposta HTTP será 404 e caso seja encontrado será 200 juntamente com os dados do recurso.
+
+- Alteramos o método "salvar" na classe "LivrosRepository" trocando o retorno para "ResponseEntity<Void>" o que nos permite fazer os tratamentos corretos dos Http Status de retorno do serviço. Caso o recurso seja salvo com sucesso  a resposta HTTP será 201 e no header da resposta será inserido o "Location" com a URI onde o recurso criado poderá ser encontrado.
