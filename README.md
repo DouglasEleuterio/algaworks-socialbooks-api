@@ -51,3 +51,7 @@ Aula 2.6 - Salvando o recurso Livro a partir de um POST
 
 - Criamo o método salvar na classe "LivrosRepository" que será executado pela URI "/livros" com método POST.
 - Mudamos a anotação @RequestMapping para a classe retirando dos médotos o mapeamento "/livros"
+
+2.7 - Buscando um livro com o uso da anotação @PathVariable
+
+- Criamos o método busca na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros/{id}"
