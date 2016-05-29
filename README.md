@@ -46,3 +46,8 @@ Aula 2.5 - Interagindo com banco de dados
 - Na classe Livro anotamos com @Entity, o atributo id com @Id e @GeneratedValue(strategy = GenerationType.IDENTITY) e o atributo comentarios com @Transient (por enquanto ficará assim).
 
 - Criamos uma interface "LivrosRepository" que extende JpaRepository e injetamos essa interface na classe "LivrosResources" alterando a implementação do método listar para utilizar esse repository.
+
+Aula 2.6 - Salvando o recurso Livro a partir de um POST
+
+- Criamo o método salvar na classe "LivrosRepository" que será executado pela URI "/livros" com método POST.
+- Mudamos a anotação @RequestMapping para a classe retirando dos médotos o mapeamento "/livros"
