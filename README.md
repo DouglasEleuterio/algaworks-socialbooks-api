@@ -59,3 +59,7 @@ Cada aula é representada por um commit que está identificado com o nome/númer
 <b>Aula 2.8</b> - Deletando o recurso Livro com o DELETE
 
 - Criamos o método remover na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros/{id}" om o Http Method DELETE
+
+<b>Aula 2.9</b> - PUT para atualizar o recurso Livro
+
+- Criamos o método atualizar na classe "LivrosRepository" e mapeamos o recurso com sendo "/livros/{id}" om o Http Method PUT
