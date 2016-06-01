@@ -28,7 +28,6 @@ public class LivrosService {
     }
 
     return livro;
-
   }
 
   public Livro salvar(Livro livro) {
@@ -37,13 +36,11 @@ public class LivrosService {
   }
 
   public void remover(final Long id) {
-
     try {
       livrosRepository.delete(id);
     } catch (EmptyResultDataAccessException e) {
       throw new LivroNaoEncontradoException("O livro não pode ser encontrado");
     }
-
   }
 
   public void atualizar(Livro livro) {
