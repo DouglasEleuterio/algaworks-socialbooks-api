@@ -72,10 +72,14 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 
 - Alteramos o método "salvar" na classe "LivrosRepository" trocando o retorno para "ResponseEntity< Void >" o que nos permite fazer os tratamentos corretos dos Http Status de retorno do serviço. Caso o recurso seja salvo com sucesso  a resposta HTTP será 201 (Created) e no header da resposta será inserido o "Location" com a URI onde o recurso criado poderá ser encontrado.
 
-<b>Aula2.11</b>b> - Finalizando o tratamento das respostas
+<b>Aula2.11</b> - Finalizando o tratamento das respostas
 
 - Alteramos o método "listar" na classe "LivrosRepository" trocando o retorno para "ResponseEntity<List<Livros>>" e sua implementação para utilizar esse novo retorno: return ResponseEntity.status(HttpStatus.OK).body(livrosRepository.findAll());
 
 - Alteramos o método "remover" na classe "LivrosRepository" trocando o retorno para "ResponseEntity< Void >" e tratamos, caso o recurso não possa ser removido por não existir a resposta HTTP será 404 (Not found) e caso consiga remover a resposta HTTP será 204 (No content)
 
 - Alteramos o método "atualizar" na classe "LivrosRepository" trocando o retorno para "ResponseEntity< Void >" e em conseguindo alterar o recuros a resposta HTTP será 204 (No content).
+
+<b>Aula2.12</b> - Melhorando o design do nosso código
+
+- Criamos a classe "LivrosService" que será a nossa camada de negócio e refatoramos toda a classe "LivrosService" para utilizar essa camada e não diretamente o repositório.
