@@ -54,7 +54,7 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 
 - Na classe Livro anotamos com @Entity, o atributo id com @Id e @GeneratedValue(strategy = GenerationType.IDENTITY) e o atributo comentarios com @Transient (por enquanto ficará assim).
 
-- Criamos uma interface "LivrosRepository" que extende JpaRepository e injetamos essa interface na classe "LivrosResources" alterando a implementação do método "listar" para utilizar esse repository.
+- Criamos uma interface "LivrosRepository" que estende JpaRepository e injetamos essa interface na classe "LivrosResources" alterando a implementação do método "listar" para utilizar esse repository.
 
 <b>Aula 2.6</b> - Salvando o recurso Livro a partir de um POST
 
@@ -90,10 +90,25 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 <b>Aula2.12</b> - Melhorando o design do nosso código
 
 - Criamos a classe "LivrosService" que será a nossa camada de negócio e refatoramos toda a classe "LivrosService" para utilizar essa camada e não diretamente o repositório.
+
 - Criamos uma exceção "LivroNaoEncontradoException" para indicar quando um recurso Livro não for encontrado.
 
-<b>2.13</b> - Manipulando erros com @ExceptionHandler e @ControllerAdvice
+<b>Aula 2.13</b> - Manipulando erros com @ExceptionHandler e @ControllerAdvice
 
 - Criamos a classe "ResourceExceptionHandler" para manipular toda exceção que ocorrer nos Resources (controllers).
+
 - Criamos a classe "DetalhesErro" para criar um body para os erros manipulados pela "ResourceExceptionHandler".
+
 - Refatoramos a classe "LivrosService" removendo os tratamentos de exceção (try/catch) para as exceções do tipo "LivroNaoEncontradoException".
+
+<b>Aula 2.14</b> - Adicionando comentários ao recurso Livro
+
+- Alteramos a classe "Livro" inserindo o mapeamento @OneToMany(mappedBy = "livro") para o atributo "comentarios".
+
+- Alteramos a classe "Comentario" inserindo as anotações @Entity, @Id, @GeneratedValue(strategy = GenerationType.IDENTITY) e criando um novo atributo Livro e anotando esse novo atributo com @ManyToOne(fetch = FetchType.LAZY), @JoinColumn(name = "LIVRO_ID") e @JsonIgnore.
+
+- Criamos uma nova interface ComentariosRepository que estende JpaRespository<Comentario, Long> para atender a nova entidade e injetamos esse repositório na classe "LivrosService".
+
+- Criamos o método "salvarComentario" na classe "LivrosService" para efetivamente salvar um comentario em um determinado livro.
+
+- Criamos o método "adicionarComentario" na classe "LivrosResources" com o seguinte mapeamento: @RequestMapping(value = "/{id}/comentarios", method = RequestMethod.POST)
