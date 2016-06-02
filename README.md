@@ -112,3 +112,9 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 - Criamos o método "salvarComentario" na classe "LivrosService" para efetivamente salvar um comentario em um determinado livro.
 
 - Criamos o método "adicionarComentario" na classe "LivrosResources" com o seguinte mapeamento: @RequestMapping(value = "/{id}/comentarios", method = RequestMethod.POST)
+
+<b>Aula 2.15</b> - Listando os comentários do recurso Livro
+
+- Criamos o método "listarComentarios" na classe "LivrosResources" com o seguinte mapeamento: @RequestMapping(value = "/{id}/comentarios", method = RequestMethod.GET).
+
+- Criamos o método "listarComentarios" na classe "LivrosService" que busca o livro informado e retorna a lista de comentários existentes nesse livro.

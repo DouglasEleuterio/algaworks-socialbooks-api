@@ -17,6 +17,7 @@ import com.algaworks.socialbooks.domain.Comentario;
 import com.algaworks.socialbooks.domain.Livro;
 import com.algaworks.socialbooks.service.LivrosService;
 
+
 @RestController
 @RequestMapping("/livros")
 public class LivrosResources {
@@ -71,6 +72,14 @@ public class LivrosResources {
 
     return ResponseEntity.created(uri).build();
 
+  }
+
+  @RequestMapping(value = "/{id}/comentarios", method = RequestMethod.GET)
+  public ResponseEntity<List<Comentario>> listarComentarios(
+      @PathVariable(value = "id") final Long livroId) {
+
+    List<Comentario> listaComentarios = livrosService.listarComentarios(livroId);
+    return ResponseEntity.status(HttpStatus.OK).body(listaComentarios);
   }
 
 }
