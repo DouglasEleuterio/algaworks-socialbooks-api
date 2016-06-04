@@ -15,7 +15,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.algaworks.socialbooks.domain.Comentario;
 import com.algaworks.socialbooks.domain.Livro;
+import com.algaworks.socialbooks.resources.exceptions.SocialBooksBadRequestException;
 import com.algaworks.socialbooks.service.LivrosService;
+import com.algaworks.socialbooks.services.exceptions.AutorNaoEncontradoException;
 
 
 @RestController
@@ -32,12 +34,16 @@ public class LivrosResources {
 
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<Void> salvar(@RequestBody Livro livro) {
-    livro = livrosService.salvar(livro);
+    try {
+      livro = livrosService.salvar(livro);
 
-    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-        .buildAndExpand(livro.getId()).toUri();
+      URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+          .buildAndExpand(livro.getId()).toUri();
 
-    return ResponseEntity.created(uri).build();
+      return ResponseEntity.created(uri).build();
+    } catch (AutorNaoEncontradoException e) {
+      throw new SocialBooksBadRequestException("O autor informado não existe.", e);
+    }
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)

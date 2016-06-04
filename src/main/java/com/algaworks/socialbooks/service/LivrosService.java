@@ -20,6 +20,9 @@ public class LivrosService {
   private LivrosRepository livrosRepository;
 
   @Autowired
+  private AutoresService autoresService;
+
+  @Autowired
   private ComentariosRepository comentarioRepository;
 
   public List<Livro> listar() {
@@ -37,6 +40,9 @@ public class LivrosService {
   }
 
   public Livro salvar(Livro livro) {
+
+    autoresService.verificarExistencia(livro.getAutor());
+
     livro.setId(null);
     return livrosRepository.save(livro);
   }
@@ -55,7 +61,9 @@ public class LivrosService {
   }
 
   private void verificarExistencia(final Livro livro) {
-    buscar(livro.getId());
+    if (livro != null && livro.getId() != null) {
+      buscar(livro.getId());
+    }
   }
 
   public Comentario salvarComentario(final Long livroId, Comentario comentario) {

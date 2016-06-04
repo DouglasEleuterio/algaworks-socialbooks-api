@@ -11,34 +11,31 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
+@JsonInclude(Include.NON_NULL)
 public class Livro {
 
-  @JsonInclude(Include.NON_NULL)
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @JsonInclude(Include.NON_NULL)
   private String nome;
 
-  @JsonInclude(Include.NON_NULL)
+  @JsonFormat(pattern = "dd/MM/yyyy")
   private Date publicacao;
 
-  @JsonInclude(Include.NON_NULL)
   private String editora;
 
-  @JsonInclude(Include.NON_NULL)
   private String resumo;
 
-  @JsonInclude(Include.NON_NULL)
+  @JsonInclude(Include.NON_EMPTY)
   @OneToMany(mappedBy = "livro")
   private List<Comentario> comentarios;
 
-  @JsonInclude(Include.NON_NULL)
   @ManyToOne
   @JoinColumn(name = "AUTOR_ID")
   private Autor autor;

@@ -138,3 +138,9 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 - Criamos o método "buscar" na classe "AutorResource" que deve busca um Autor através do Id informado. Caso o recurso não seja encontrado ("AutorNaoEncontradoException") a resposta HTTP será 404 - NOT_FOUND e caso seja encontrado será 200 - OK juntamente com os dados do recurso.
 
 - Ajustamos a classe "ResourceExceptionHandler" para manipular os novos erros emitidos pelo controller.
+
+<b>Aula 2.18</b> - Testando nossos recursos e formatando nossas representações JSON
+
+- Alteramos as classes de modelo inserindo a anotação @JsonFormat(pattern = "dd/MM/yyyy") para definir o formato da data a ser informada na entrada e como será seu formato na saída.
+
+- Alteramos a classe "Livro" anotando o atributo "comentarios" com anotação @JsonInclude(Include.NON_EMPTY) para evitar que a lista de comentários seja exibida na saída caso a mesma esteja nula.

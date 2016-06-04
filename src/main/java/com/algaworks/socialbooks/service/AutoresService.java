@@ -40,4 +40,10 @@ public class AutoresService {
 
   }
 
+  public void verificarExistencia(final Autor autor) {
+    if (autor != null && autor.getId() != null) {
+      buscar(autor.getId());
+    }
+  }
+
 }
