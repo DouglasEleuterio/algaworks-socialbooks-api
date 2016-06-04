@@ -8,22 +8,45 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.algaworks.socialbooks.domain.DetalhesErro;
-import com.algaworks.socialbooks.services.exceptions.LivroNaoEncontradoException;
+import com.algaworks.socialbooks.services.exceptions.RecursoExistenteException;
+import com.algaworks.socialbooks.services.exceptions.RecursoNaoEncontradoException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
-  @ExceptionHandler(LivroNaoEncontradoException.class)
-  public ResponseEntity<DetalhesErro> handleLivroNaoEncontradoException(
-      LivroNaoEncontradoException e, HttpServletRequest request) {
+  private static final String CONFLICT_URL_ERROR = "http://erros.socialbooks.com.br/409";
+  private static final String NOT_FOUND_URL_ERROR = "http://erros.socialbooks.com.br/404";
+
+  @ExceptionHandler(RecursoNaoEncontradoException.class)
+  public ResponseEntity<DetalhesErro> handleRecursoNaoEncontradoException(
+      RecursoNaoEncontradoException e, HttpServletRequest request) {
+
+    return getResponseEntity(HttpStatus.NOT_FOUND, e, NOT_FOUND_URL_ERROR);
+  }
+
+  @ExceptionHandler(RecursoExistenteException.class)
+  public ResponseEntity<DetalhesErro> handleRecursoExistenteException(RecursoExistenteException e,
+      HttpServletRequest request) {
+
+    return getResponseEntity(HttpStatus.CONFLICT, e, CONFLICT_URL_ERROR);
+  }
+
+  private ResponseEntity<DetalhesErro> getResponseEntity(HttpStatus status, RuntimeException e,
+      String mensagemDesenvolvedor) {
+
+    return ResponseEntity.status(status)
+        .body(getDetalhesErro(status, e.getMessage(), mensagemDesenvolvedor));
+  }
+
+  private DetalhesErro getDetalhesErro(HttpStatus status, String titulo,
+      String mensagemDesenvolvedor) {
 
     DetalhesErro erro = new DetalhesErro();
-    erro.setStatus(404l);
-    erro.setTitulo("O livro não foi encontrado.");
-    erro.setMensagemDesenvolvedor("http://erros.socialbooks.com.br/404");
+    erro.setStatus(Long.valueOf(status.value()));
+    erro.setTitulo(titulo);
+    erro.setMensagemDesenvolvedor(mensagemDesenvolvedor);
     erro.setTimestamp(System.currentTimeMillis());
-
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+    return erro;
   }
 
 }

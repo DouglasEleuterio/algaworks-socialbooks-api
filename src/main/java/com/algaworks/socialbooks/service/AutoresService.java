@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.algaworks.socialbooks.domain.Autor;
 import com.algaworks.socialbooks.repository.AutoresRepository;
+import com.algaworks.socialbooks.services.exceptions.AutorExistenteException;
+import com.algaworks.socialbooks.services.exceptions.AutorNaoEncontradoException;
 
 @Service
 public class AutoresService {
@@ -16,6 +18,26 @@ public class AutoresService {
 
   public List<Autor> listar() {
     return autoresRepository.findAll();
+  }
+
+  public Autor salvar(Autor autor) {
+    if (autor.getId() != null) {
+      if (autoresRepository.findOne(autor.getId()) != null) {
+        throw new AutorExistenteException("O autor já existe");
+      }
+    }
+    return autoresRepository.save(autor);
+  }
+
+  public Autor buscar(final Long id) {
+    Autor autor = autoresRepository.findOne(id);
+
+    if (autor == null) {
+      throw new AutorNaoEncontradoException("O autor não foi encontrado.");
+    }
+
+    return autor;
+
   }
 
 }

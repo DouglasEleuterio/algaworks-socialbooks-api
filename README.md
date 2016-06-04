@@ -130,3 +130,11 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 - Criamos a classe "AutoresService" que será a camada de serviço e o método "listar" para listar todos os autores.
 
 - Criamos a classe "AutoresResource" e o método "listar" com o seguinte mapeamento: @RequestMapping(method = RequestMethod.GET).
+
+<b>Aula 2.17</b> - Evoluindo nosso recurso Autor
+
+- Criamos o método "salvar" na classe "AutoresResource" que deve salvar o Autor e devover o Http Status 201 - CREATED e informar o location do recurso criado utilizando "ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(autor.getId()).toUri();". Caso o Autor a ser cadastrado já exista ("AutorExistenteException"), deve retornar o Http Status 409 - CONFLICT.
+
+- Criamos o método "buscar" na classe "AutorResource" que deve busca um Autor através do Id informado. Caso o recurso não seja encontrado ("AutorNaoEncontradoException") a resposta HTTP será 404 - NOT_FOUND e caso seja encontrado será 200 - OK juntamente com os dados do recurso.
+
+- Ajustamos a classe "ResourceExceptionHandler" para manipular os novos erros emitidos pelo controller.

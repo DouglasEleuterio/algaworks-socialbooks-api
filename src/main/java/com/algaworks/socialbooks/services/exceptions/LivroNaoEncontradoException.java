@@ -1,6 +1,6 @@
 package com.algaworks.socialbooks.services.exceptions;
 
-public class LivroNaoEncontradoException extends RuntimeException {
+public class LivroNaoEncontradoException extends RecursoNaoEncontradoException {
 
   private static final long serialVersionUID = 1869300553614629710L;
 
