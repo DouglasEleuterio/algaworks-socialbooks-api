@@ -118,3 +118,15 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 - Criamos o método "listarComentarios" na classe "LivrosResources" com o seguinte mapeamento: @RequestMapping(value = "/{id}/comentarios", method = RequestMethod.GET).
 
 - Criamos o método "listarComentarios" na classe "LivrosService" que busca o livro informado e retorna a lista de comentários existentes nesse livro.
+
+<b>Aula 2.16</b> - Adicionando o recurso Autor à nossa AP
+
+- Criamos a classe de dominio "Autor" com os seguintes atributos: "id, nome, dataNascimento, nacionalidade e livros". A classe deve estar com as anotações JPA para definir uma entidade. O atributo "livro" deve contér a anotação @OneToMany(mappedBy = "autor") para definir o relacionamento com a entidade "Livro" e a anotação "@JsonIgnore" para que quando seja feita a serialização para JSON, não ocorra uma loop infinito de chamadas.
+
+- Alteramos a classe "Livro", mudando o atributo livro de "String" para "Autor" e anotamos com @ManyToOne e @JoinColumn(name = "AUTOR_ID") para definir o relacionamento com a entidade "Autor".
+
+- Criamos a interface "AutoresRepository" definindo como um repositório para a entidade "Autor".
+
+- Criamos a classe "AutoresService" que será a camada de serviço e o método "listar" para listar todos os autores.
+
+- Criamos a classe "AutoresResource" e o método "listar" com o seguinte mapeamento: @RequestMapping(method = RequestMethod.GET).
