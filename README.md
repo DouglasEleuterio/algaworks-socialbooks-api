@@ -8,6 +8,8 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 
 - Criação do projeto: https://start.spring.io/
 
+- O projeto criado será utilizando o Maven.
+
 <b>Aula 2.2</b> - Modelando nosso primeiro recurso
 
 - Criamos uma classe "LivrosResources" e anotamos com @RestController .
@@ -165,3 +167,14 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 		</dependency>
 
 - Para negociar o Media Type para o serviço, é necessário no header da requisição informar o atributo "Accept". Caso o valor seja "application/json" a representação do recurso será em JSON, caso seja "application/xml" a representação do recurso será em XML.
+
+<b>Aula 3.1</b> -  Adicionando cache
+
+- Alteramos o método "buscar" da classe "LivrosResource" adicionando um controle de cache utilizando o seguinte código:
+	
+	CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
+	return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(livro);
+
+	- Repare que criamos um objeto "CacheControl" e definimos que a informação valerá por 20 segundos. Passamos esse objeto na resposta da requisição. Com isso o cliente só voltará a buscar a informação no servidor após expirar o cache, ou seja, após 20 segundos.
+
+	- No postman para verificar o funcionamento dessa funcionalidade será necessário desligar a opção "Send no-cache-header" que fica nas configurações do Postman.
