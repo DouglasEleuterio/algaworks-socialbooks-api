@@ -152,3 +152,16 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 - Alteramos a classe "Livro" anotando o campo "resumo" com @Size(max = 1500, message = "O campo resumo excedeu o tamanho permitido. Permitido 1500 caracteres.")
 
 - Alteramos a classe "Comentario" anotando o campo "texto" com @Size(max = 1500, message = "O campo texto excedeu o tamanho permitido. Permitido 1500 caracteres.") e com @JsonProperty(value = "comentario") para mudar o campo na representação do recurso para "comentario".
+
+<b>Aula 2.20</b> - Negociação de conteúdos com Media Type
+
+- Alteramos o método "listar" na classe "AutoresResource" acrescentando na anotação @RequestMapping já existente o parâmetro: "produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}", ficando da seguinte forma: "@RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})".
+
+- Em seguida adicionamos a seguinte dependência do Jackson para permitir produzir a sáída dos nossos serviços no formato XML:
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+
+- Para negociar o Media Type para o serviço, é necessário no header da requisição informar o atributo "Accept". Caso o valor seja "application/json" a representação do recurso será em JSON, caso seja "application/xml" a representação do recurso será em XML.
