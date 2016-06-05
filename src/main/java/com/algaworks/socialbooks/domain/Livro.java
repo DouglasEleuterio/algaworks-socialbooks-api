@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,13 +25,18 @@ public class Livro {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotNull(message = "Campo obrigatório.")
   private String nome;
 
   @JsonFormat(pattern = "dd/MM/yyyy")
+  @NotNull(message = "Campo obrigatório.")
   private Date publicacao;
 
+  @NotNull(message = "Campo obrigatório.")
   private String editora;
 
+  @NotNull(message = "Campo obrigatório.")
+  @Size(max = 1500, message = "O campo resumo excedeu o tamanho permitido. Permitido 1500 caracteres.")
   private String resumo;
 
   @JsonInclude(Include.NON_EMPTY)

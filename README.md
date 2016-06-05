@@ -144,3 +144,11 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 - Alteramos as classes de modelo inserindo a anotação @JsonFormat(pattern = "dd/MM/yyyy") para definir o formato da data a ser informada na entrada e como será seu formato na saída.
 
 - Alteramos a classe "Livro" anotando o atributo "comentarios" com anotação @JsonInclude(Include.NON_EMPTY) para evitar que a lista de comentários seja exibida na saída caso a mesma esteja nula.
+
+<b>Aula 2.19</b> - Validando as entradas na nossa API
+
+- Alteramos as classes "Autor", "Livro" e "Comentário" anotando os campos obrigatórios com @NotNull(message = "Campo <campo> obrigatório.").
+
+- Alteramos a classe "Livro" anotando o campo "resumo" com @Size(max = 1500, message = "O campo resumo excedeu o tamanho permitido. Permitido 1500 caracteres.")
+
+- Alteramos a classe "Comentario" anotando o campo "texto" com @Size(max = 1500, message = "O campo texto excedeu o tamanho permitido. Permitido 1500 caracteres.") e com @JsonProperty(value = "comentario") para mudar o campo na representação do recurso para "comentario".
