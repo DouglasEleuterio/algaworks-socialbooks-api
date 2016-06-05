@@ -2,12 +2,10 @@ package com.algaworks.socialbooks.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +24,7 @@ import com.algaworks.socialbooks.services.exceptions.AutorNaoEncontradoException
 
 @RestController
 @RequestMapping("/livros")
-public class LivrosResources {
+public class LivrosResources extends AbstractResource {
 
   @Autowired
   private LivrosService livrosService;
@@ -54,9 +52,7 @@ public class LivrosResources {
   public ResponseEntity<?> buscar(@PathVariable(value = "id") final Long id) {
     Livro livro = livrosService.buscar(id);
 
-    CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
-
-    return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(livro);
+    return ResponseEntity.status(HttpStatus.OK).cacheControl(getCacheControlMaxAge()).body(livro);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -79,6 +75,7 @@ public class LivrosResources {
   public ResponseEntity<Void> adicionarComentario(@PathVariable(value = "id") final Long livroId,
       @RequestBody Comentario comentario) {
 
+    // comentario.setUsuario(getAuthenticatedUser());
     livrosService.salvarComentario(livroId, comentario);
 
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();

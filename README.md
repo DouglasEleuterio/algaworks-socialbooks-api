@@ -171,10 +171,27 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 <b>Aula 3.1</b> -  Adicionando cache
 
 - Alteramos o método "buscar" da classe "LivrosResource" adicionando um controle de cache utilizando o seguinte código:
-	
+
+```java
 	CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
 	return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(livro);
+```
 
 	- Repare que criamos um objeto "CacheControl" e definimos que a informação valerá por 20 segundos. Passamos esse objeto na resposta da requisição. Com isso o cliente só voltará a buscar a informação no servidor após expirar o cache, ou seja, após 20 segundos.
 
 	- No postman para verificar o funcionamento dessa funcionalidade será necessário desligar a opção "Send no-cache-header" que fica nas configurações do Postman.
+
+<b>Aula 3.2</b> - Autenticação com Spring Security	
+
+- Vamos adicionar a dependencia do Spring Security no pom.xml
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>			
+
+- Criamos a classe "WebSecurityConfig" que estende "WebSecurityConfigurerAdapter" (Spring Security) que será responsável por realizar as configurações de segurança da aplicação. A segurança será em memória (com um usuário e senha definidos na apliação), utilizando o "Basic Auth" (No header da requisição inserir a propriedade "Authorization" com valor "usuario:senha" na Base64). Exemplo: www.base64encode.org - admin:s3nh4
+
+- Para testar no Postman, clicar na opção "Authorization", selecionar o "Type" como "Basic Auth" e inserir o usuário e a senha.
+
+- csrf - é um tipo de proteção colocado na aplicação para evitar ataques
