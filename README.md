@@ -177,9 +177,9 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 	return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(livro);
 ```
 
-	- Repare que criamos um objeto "CacheControl" e definimos que a informação valerá por 20 segundos. Passamos esse objeto na resposta da requisição. Com isso o cliente só voltará a buscar a informação no servidor após expirar o cache, ou seja, após 20 segundos.
+- Repare que criamos um objeto "CacheControl" e definimos que a informação valerá por 20 segundos. Passamos esse objeto na resposta da requisição. Com isso o cliente só voltará a buscar a informação no servidor após expirar o cache, ou seja, após 20 segundos.
 
-	- No postman para verificar o funcionamento dessa funcionalidade será necessário desligar a opção "Send no-cache-header" que fica nas configurações do Postman.
+- No postman para verificar o funcionamento dessa funcionalidade será necessário desligar a opção "Send no-cache-header" que fica nas configurações do Postman.
 
 <b>Aula 3.2</b> - Autenticação com Spring Security	
 
@@ -194,4 +194,7 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 
 - Para testar no Postman, clicar na opção "Authorization", selecionar o "Type" como "Basic Auth" e inserir o usuário e a senha.
 
-- csrf - é um tipo de proteção colocado na aplicação para evitar ataques
+<b>Aula 4.1</b> - Automatizando testes com Postman
+
+- Criamos testes automatizados no Postman.
+- Referência para criação de testes no Postman: https://www.getpostman.com/docs/testing_examples

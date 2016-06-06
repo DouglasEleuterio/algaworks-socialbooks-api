@@ -75,7 +75,7 @@ public class LivrosResources extends AbstractResource {
   public ResponseEntity<Void> adicionarComentario(@PathVariable(value = "id") final Long livroId,
       @RequestBody Comentario comentario) {
 
-    // comentario.setUsuario(getAuthenticatedUser());
+    comentario.setUsuario(getAuthenticatedUser());
     livrosService.salvarComentario(livroId, comentario);
 
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
