@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().authenticated()
-        .and().httpBasic().and().csrf().disable();
+        .and().httpBasic().and().csrf().disable().headers().cacheControl().disable();
 
     // csrf - é um tipo de proteção colocado na aplicação para evitar ataques (pesquisar sobre
     // isso).
