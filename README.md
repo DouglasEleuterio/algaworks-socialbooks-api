@@ -198,3 +198,10 @@ Referência para HTTP (Métodos e Status de respostas) - http://tools.ietf.org/h
 
 - Criamos testes automatizados no Postman.
 - Referência para criação de testes no Postman: https://www.getpostman.com/docs/testing_examples
+
+
+<b>Aula 4.6</b> Cross-Origin Resource Sharing (CORS)
+
+- Adicionamos na configuração do Spring Security na classe "WebSecurityConfig" o seguinte código: ".antMatchers(HttpMethod.OPTIONS, "/**").permitAll()" o que permitirá que chamadas com método OPTIONS não seja autenticada pelo Spring Security
+
+- Adicionamos a anotação "@CrossOrigin" no método "listar" da classe "LivrosResources" para permitir o Cross Origin
